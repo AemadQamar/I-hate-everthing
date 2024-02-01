@@ -1,0 +1,16 @@
+#!/bin/bash
+if [ $# -ne 2 ]; then
+    echo "Usage: $0 commandToTest testSetFile" >&2
+    exit
+fi
+for x in $(cat $2); do
+    if [ "$($1 $(cat $x.args) < "$x.in")" != "$(cat $x.out)" ]; then
+        echo "Test $x failed"
+        echo "Expected output: "
+        echo "$(cat "$x.out")"
+        echo "Actual output: "
+        echo "$($1 $(cat $x.args) < "$x.in")"
+    else 
+        echo "Test $x passed"
+    fi
+done

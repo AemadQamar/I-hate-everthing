@@ -1,0 +1,12 @@
+#!/bin/bash
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 testSetFile" >&2
+    exit
+fi
+for x in $(cat $1); do
+    if [ -f $x.desc ]; then
+    echo $(cat "$x.desc")
+    else
+    echo "$x No test description"
+    fi
+done
